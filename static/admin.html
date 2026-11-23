@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f8f6f1">
+  <title>KADRS! | Organizatora panelis</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/admin.js" defer></script>
+</head>
+<body class="admin-body">
+  <header class="site-header wrap">
+    <a class="brand" href="/"><span class="brand-mark">✳</span><span>KADRS<span class="brand-punct">!</span></span></a>
+    <nav class="main-nav"><a href="/">← Spēlētāju skats</a><span class="admin-pill">ORGANIZATORS</span></nav>
+  </header>
+  <main class="wrap admin-main">
+    <div id="loginScreen" class="admin-login">
+      <span class="admin-login-icon">⚙</span><span class="section-kicker">SPĒLES KONTROLE</span><h1>Organizatora<br>panelis.</h1><p>Šeit top uzdevumi, ienāk bildes un dzim uzvarētāji.</p>
+      <form id="adminLoginForm" class="admin-login-form"><label for="adminPassword">ADMINISTRATORA PAROLE</label><input id="adminPassword" type="password" placeholder="Ievadi paroli" autocomplete="current-password" required><button class="btn btn-dark btn-full">Atvērt paneli <span>→</span></button><p id="adminLoginMessage" class="field-msg" role="status"></p></form>
+    </div>
+    <div id="dashboard" class="hidden">
+      <div class="admin-hero"><div><span class="section-kicker">SVEIKS, ORGANIZATOR!</span><h1>Spēles vadības<br><span>centrs. ✳</span></h1><p>Pieņem foto, pielāgo uzdevumus un seko punktiem.</p></div><button class="text-button" id="adminLogout">Iziet ↗</button></div>
+      <div id="statCards" class="stats-grid"></div>
+      <div class="tab-bar" role="tablist" aria-label="Administratora sadaļas">
+        <button class="tab active" data-tab="submissions" role="tab" aria-selected="true">📥 Iesniegumi <span id="pendingBubble"></span></button>
+        <button class="tab" data-tab="tasks" role="tab" aria-selected="false">📸 Uzdevumi</button>
+        <button class="tab" data-tab="teams" role="tab" aria-selected="false">👥 Komandas</button>
+        <button class="tab" data-tab="scores" role="tab" aria-selected="false">🏆 Rezultāti</button>
+      </div>
+      <div class="tab-content" id="submissionsTab"><div class="section-head"><div><span class="section-kicker">PĀRBAUDEI</span><h2>Foto iesniegumi</h2></div></div><div id="submissionsList" class="submissions-grid"></div></div>
+      <div class="tab-content hidden" id="tasksTab"><div class="section-head"><div><span class="section-kicker">LĪDZ 10 MISIJĀM</span><h2>Uzdevumu pārvaldība</h2></div><button class="btn btn-dark btn-small" id="addTaskBtn">+ Pievienot</button></div><div id="adminTaskList" class="admin-list"></div></div>
+      <div class="tab-content hidden" id="teamsTab"><div class="section-head"><div><span class="section-kicker">LĪDZ 10 KOMANDĀM</span><h2>Komandas un kodi</h2></div></div><form class="inline-create" id="addTeamForm"><input id="newTeamName" placeholder="Jaunas komandas nosaukums" maxlength="45" minlength="2" required><button class="btn btn-dark" type="submit">+ Pievienot</button></form><div id="adminTeamList" class="admin-list"></div><p class="score-note">Nodod katrai komandai tās sešzīmju kodu. Komandas pašas pievienojas spēles sākumlapā.</p></div>
+      <div class="tab-content hidden" id="scoresTab"><div class="section-head"><div><span class="section-kicker">CĪŅA PAR UZVARU</span><h2>Rezultātu tablo</h2></div></div><div class="leaderboard" id="adminLeaderboard"></div></div>
+    </div>
+  </main>
+  <dialog class="edit-dialog" id="taskDialog">
+    <form method="dialog" class="dialog-close-form"><button type="submit" class="icon-button" aria-label="Aizvērt">✕</button></form>
+    <div class="dialog-content"><span class="section-kicker">UZDEVUMA IESTATĪJUMI</span><h2 id="taskDialogHeading">Jauns uzdevums</h2>
+      <form id="taskEditForm" class="edit-form">
+        <label for="editTitle">Nosaukums</label><input id="editTitle" maxlength="100" required minlength="2" placeholder="Piem., Cilvēku piramīda">
+        <label for="editDescription">Kas komandai jādara?</label><textarea id="editDescription" rows="4" maxlength="800" required minlength="4" placeholder="Apraksti foto uzdevumu..."></textarea>
+        <div class="two-fields"><div><label for="editPoints">Punkti</label><input id="editPoints" type="number" min="1" max="1000" value="100" required></div><div><label for="editEmoji">Simbols / emoji</label><input id="editEmoji" maxlength="12" value="📸" required></div></div>
+        <label for="editCategory">Kategorija</label><select id="editCategory"><option>Poza</option><option>Objekts</option><option>Vieta</option><option>Komanda</option><option>Radošais</option><option>Foto</option></select>
+        <button class="btn btn-accent btn-full" id="saveTaskBtn" type="submit">Saglabāt uzdevumu <span>→</span></button><p class="field-msg" id="taskEditMessage"></p>
+      </form>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status"></div>
+</body>
+</html>

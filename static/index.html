@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f1">
+  <title>KADRS! | Foto medības</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header wrap">
+    <a class="brand" href="/" aria-label="KADRS! sākumlapa"><span class="brand-mark">✳</span><span>KADRS<span class="brand-punct">!</span></span></a>
+    <nav class="main-nav"><a href="#scores">Rezultāti</a><a class="nav-admin" href="/admin">Organizatoriem <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main>
+    <section class="hero wrap" id="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> KOMANDU FOTO PIEDZĪVOJUMS</span>
+        <h1>Atrodi.<br>Pozē.<br><span class="hero-accent">Iemūžini!</span></h1>
+        <p>Neparastas pozas, negaidīti objekti un viena misija: savākt vairāk punktu nekā pārējie.</p>
+        <a class="btn btn-dark" href="#join">Sākt spēli <span>↗</span></a>
+        <div class="hero-mini"><span class="mini-stars">✦ ✦ ✦</span> Līdz 10 uzdevumiem. Daudz labu kadru.</div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="hero-sticker sticker-one">100<br><small>PUNKTI</small></div>
+        <div class="hero-photo">
+          <div class="photo-shine"></div>
+          <span class="photo-emoji">📸</span>
+          <div class="photo-caption"><span>FOTO MEDĪBAS</span><span>01 / 10</span></div>
+        </div>
+        <div class="hero-sticker sticker-two">✺</div>
+        <span class="visual-spark star-a">✳</span><span class="visual-spark star-b">✦</span>
+      </div>
+    </section>
+
+    <section class="wrap game-area" id="join" aria-live="polite">
+      <div id="joinPanel" class="join-panel">
+        <div class="join-copy"><span class="section-kicker">GATAVI?</span><h2>Tava komanda.<br>Tavs nākamais kadrs.</h2><p>Saņem komandas kodu no spēles organizatora un dodies medībās!</p></div>
+        <form class="join-form" id="joinForm">
+          <label for="teamCode">KOMANDAS PIEKĻUVES KODS</label>
+          <input id="teamCode" name="code" type="text" minlength="6" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Piem., A7K2PX" required>
+          <button class="btn btn-accent" type="submit">Pievienoties komandai <span>→</span></button>
+          <p class="field-msg" id="joinMessage" role="status"></p>
+        </form>
+      </div>
+      <div class="team-panel hidden" id="teamPanel">
+        <div><span class="section-kicker">TU ESI SPĒLĒ!</span><h2>Komanda <span id="currentTeamName"></span> <span class="wave">👋</span></h2><p id="teamProgress">Iesniedz foto un vāc punktus!</p></div>
+        <div class="team-overview"><div><strong id="teamScore">0</strong><span>PUNKTI</span></div><div><strong id="teamDone">0/8</strong><span>IZPILDĪTI</span></div><button class="text-button" id="logoutBtn" type="button">Iziet no komandas ↗</button></div>
+      </div>
+    </section>
+
+    <section class="wrap mission-section" id="missions">
+      <div class="section-head"><div><span class="section-kicker">PIEDZĪVOJUMS SĀKAS ŠEIT</span><h2>Foto uzdevumi <span class="tiny-star">✳</span></h2></div><p id="tasksCount" class="count-pill">8 UZDEVUMI</p></div>
+      <div class="missions-grid" id="taskGrid"><div class="loading-card">Ielādē uzdevumus…</div></div>
+    </section>
+
+    <section class="wrap leaderboard-section" id="scores">
+      <div class="section-head"><div><span class="section-kicker">KURŠ BŪS PIRMAIS?</span><h2>Rezultātu tablo <span class="tiny-star">✳</span></h2></div><p class="muted-small">Atjaunojas automātiski</p></div>
+      <div class="leaderboard" id="leaderboard"><p class="loading-card">Ielādē rezultātus…</p></div>
+      <p class="score-note">Punkti tiek piešķirti, kad organizators apstiprina iesūtīto fotogrāfiju.</p>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><span class="brand"><span class="brand-mark">✳</span>KADRS!</span><span>Daži labi kadri ir labāki par simts parastiem.</span></div></footer>
+
+  <dialog id="uploadDialog" class="upload-dialog">
+    <form method="dialog" class="dialog-close-form"><button class="icon-button" aria-label="Aizvērt" type="submit">✕</button></form>
+    <div class="dialog-content">
+      <div class="dialog-emoji" id="dialogEmoji">📸</div>
+      <span class="section-kicker">IESNIEDZ FOTO</span><h2 id="dialogTitle">Uzdevums</h2><p id="dialogDescription"></p>
+      <img class="dialog-reference hidden" id="dialogReference" alt="Uzdevuma parauga attēls">
+      <form id="uploadForm">
+        <label for="photoInput" class="file-drop"><span class="file-icon">↥</span><strong id="fileLabel">Izvēlies fotoattēlu</strong><small>Vari izmantot telefonu kameru vai galeriju</small></label>
+        <input id="photoInput" class="file-input" type="file" accept="image/jpeg,image/png,image/webp,image/*" required>
+        <img id="photoPreview" alt="Izvēlētā foto priekšskatījums" class="photo-preview hidden">
+        <button class="btn btn-accent btn-full" id="uploadSubmit" type="submit">Iesniegt vērtēšanai <span>→</span></button>
+        <p class="field-msg" id="uploadMessage" role="status"></p>
+      </form>
+    </div>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+</body>
+</html>
